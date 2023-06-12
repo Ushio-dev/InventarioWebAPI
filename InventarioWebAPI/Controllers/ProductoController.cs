@@ -75,5 +75,13 @@ namespace InventarioWebAPI.Controllers
 
 			return prod;
 		}
+
+		[HttpGet("search/")]
+		public async Task<ActionResult<IEnumerable<Producto>>> GetByCategoria([FromQuery] int id)
+		{
+			var productos = await _db.Productos.Include(c => c.Categoria).Where(p => p.CategoriaId == id).ToListAsync();
+
+			return productos;
+		}
 	}
 }
